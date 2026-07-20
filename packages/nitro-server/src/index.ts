@@ -19,7 +19,9 @@ import { isWindows } from 'std-env'
 import { ImpoundPlugin } from 'impound'
 import { resolveModulePath } from 'exsolve'
 import { runtimeDependencies } from 'nitro/meta'
-import './augments.ts'
+// Re-export a type from the augment module rather than a bare `import './augments.ts'`
+// side-effect import to work around bug in oxc's dts emitter which drops side-effect-only imports
+export type { NuxtTracingChannelOptions } from './augments.ts'
 
 import nitroBuilder from '../package.json' with { type: 'json' }
 import { distDir, getLayerNodeModulesExcludePattern, getSsrResolveConditions, toArray } from './utils.ts'
